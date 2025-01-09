@@ -636,10 +636,11 @@ watch(() => form.value.document, (newValue) => {
               <label class="block mb-2">Número *</label>
               <input 
                 v-model="form.address.number"
-                type="text"
+                type="number"
                 class="w-full p-2 border rounded"
                 :class="{'border-red-500': errors.address.number}"
                 required
+                min="0"
                 @blur="validateField('number', 'address')"
               >
               <div v-if="errors.address.number" class="text-red-500 text-sm mt-1">

@@ -589,7 +589,7 @@ const resetForm = () => {
               <label class="block mb-2">Número *</label>
               <input 
                 v-model="form.address.number"
-                type="text"
+                type="number"
                 class="w-full p-2 border rounded"
                 :class="{'border-red-500': errors.address.number}"
                 required
