@@ -1,6 +1,5 @@
 services:
-  api:
-    container_name: api
+  laravel.test:
     build:
       context: "./vendor/laravel/sail/runtimes/8.4"
       dockerfile: Dockerfile
