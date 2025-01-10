@@ -86,7 +86,6 @@ async function fetchSupplier() {
     const response = await $fetch<{ data: Supplier }>(`http://localhost/api/suppliers/${route.params.id}`)
     supplier.value = response.data
   } catch (e) {
-    console.error('Erro ao buscar fornecedor:', e)
     error.value = 'Erro ao carregar os dados do fornecedor'
   } finally {
     isLoading.value = false

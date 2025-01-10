@@ -1,54 +1,53 @@
 ## Teste para Desenvolvedor PHP/Laravel
 
-Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Laravel. 
+Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Laravel.
+Desenvolvedor : ### Julio Helena Neto
+O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedores, permitindo a busca por Nome, email ou Documento(CNPJ/CPF) utilizando Laravel no backend e um frontend em Vue.jsconsumindo essa API.
 
-O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedores, permitindo a busca por CNPJ ou CPF, utilizando Laravel no backend.
 
-## Descrição do Projeto
+#### Instruções:
+  - Clone o repositorio
+  
+  - Entre no diretorio `laravel` (cd laravel)
 
-### Backend (API Laravel):
+  - Rode o comando `composer install`
 
-#### CRUD de Fornecedores:
-- **Criar Fornecedor:**
-  - Permita o cadastro de fornecedores usando CNPJ ou CPF, incluindo informações como nome/nome da empresa, contato, endereço, etc.
-  - Valide a integridade e o formato dos dados, como o formato correto de CNPJ/CPF e a obrigatoriedade de campos.
+  # Copiar o arquivo de ambiente
+    cp .env.example .env
 
-- **Editar Fornecedor:**
-  - Facilite a atualização das informações de fornecedores, mantendo a validação dos dados.
+    # Gerar a chave da aplicação
+    php artisan key:generate
 
-- **Excluir Fornecedor:**
-  - Possibilite a remoção segura de fornecedores.
+    # Iniciar os containers
+    ./vendor/bin/sail up -d
 
-- **Listar Fornecedores:**
-  - Apresente uma lista paginada de fornecedores, com filtragem e ordenação.
+    # Entrar no container docker do laravel
+    docker exec -it <id-do-container-docker-do-laravel>  bash
 
-#### Migrations:
-- Utilize migrations do Laravel para definir a estrutura do banco de dados, garantindo uma boa organização e facilidade de manutenção.
+    # Rodar as migrations e popular o banco de dados
+    php artisan migrate:fresh --seed
 
-## Requisitos
+    # Entre no diretorio front
+    cd ../front
 
-### Backend:
-- Implementar busca por CNPJ na [BrasilAPI](https://brasilapi.com.br/docs#tag/CNPJ/paths/~1cnpj~1v1~1{cnpj}/get) ou qualquer outro endpoint público.
+    # Rode o comando `yarn install`
+    
+    # Rode o comando `yarn dev`
+    
 
-## Tecnologias a serem utilizadas
-- Framework Laravel (PHP) 9.x ou superior
-- MySQL ou Postgres
+    ### copie e cole ou digite no navegador `http://localhost:3000`
 
-## Critérios de Avaliação
-- Adesão aos requisitos funcionais e técnicos.
-- Qualidade do código, incluindo organização, padrões de desenvolvimento e segurança.
-- Documentação do projeto, incluindo um README detalhado com instruções de instalação e operação.
+    - Deve exibir a lista dos fornecedores
+    - Deve estar paginado de 10 em 10 registros
+    - Deve conseguir ordenar por nome, email ou id
+    - Para filtrar os fornecedores deve digitar no campo de pesquisa e pressionar enter, nome, email ou documento.
+    - Para adicionar um novo fornecedor clique no botão `Novo Fornecedor`
+    - Para editar um fornecedor clique no botão `Editar`
+    - Para excluir um fornecedor clique no botão `Excluir`, uma mensagem de confirmação será exibida
 
-## Bônus
-- Implementação de Repository Pattern.
-- Implementação de testes automatizados.
-- Dockerização do ambiente de desenvolvimento.
-- Implementação de cache para otimizar o desempenho.
+    - Quando preencher o campo nos formularios de criacao ou edicao no campo documento ira fazer uma busca no BrasilAPI para validar o documento
+    - Quando preencher o campo nos formularios de criacao ou edicao no campo cep  ira fazer uma busca no BrasilAPI para trazer os dados do endereço
 
-## Entrega
-- Para iniciar o teste, faça um fork deste repositório; Se você apenas clonar o repositório não vai conseguir fazer push.
-- Crie uma branch com o nome que desejar;
-- Altere o arquivo README.md com as informações necessárias para executar o seu teste (comandos, migrations, seeds, etc);
-- Depois de finalizado, envie-nos o pull request;
+
 
 

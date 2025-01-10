@@ -103,7 +103,6 @@ async function fetchSuppliers(search: string = '') {
       })
     }
   } catch (error) {
-    console.error('Erro ao buscar fornecedores:', error)
     addToast('Erro ao carregar fornecedores', 'error')
   } finally {
     isLoading.value = false
@@ -171,7 +170,6 @@ async function confirmDelete() {
     showDeleteModal.value = false
     addToast('Fornecedor excluído com sucesso!', 'success')
   } catch (error) {
-    console.error('Erro ao excluir fornecedor:', error)
     addToast('Erro ao excluir fornecedor. Tente novamente.', 'error')
   } finally {
     isDeleting.value = false

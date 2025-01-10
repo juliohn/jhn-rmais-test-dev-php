@@ -99,37 +99,24 @@ const clearMessages = () => {
 }
 
 const formatDocument = (value: string) => {
-  // Adicionar logs para debug
-  console.log("Formatting document:", {
-    value,
-    type: form.value.document_type,
-    cleaned: value.replace(/\D/g, '')
-  })
-
   // Limpa caracteres não numéricos
   const numbers = value.replace(/\D/g, '')
   
   if (form.value.document_type === 'F') {
     // Formato: 000.000.000-00
-    const formatted = numbers
+    return numbers
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
       .slice(0, 14)
-    
-    console.log("CPF formatted:", formatted)
-    return formatted
   } else {
     // Formato: 00.000.000/0000-00
-    const formatted = numbers
+    return numbers
       .replace(/(\d{2})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1/$2')
       .replace(/(\d{4})(\d{1,2})$/, '$1-$2')
       .slice(0, 18)
-    
-    console.log("CNPJ formatted:", formatted)
-    return formatted
   }
 }
 
@@ -154,10 +141,7 @@ const validateCNPJ = async (cnpj: string) => {
       setTimeout(() => reject(new Error('Timeout')), 5000)
     })
 
-    // Fazer a requisição
     const fetchPromise = fetch(`https://brasilapi.com.br/api/cnpj/v1/${cleanCNPJ}`)
-
-    // Competir entre o timeout e a requisição
     const response = await Promise.race([fetchPromise, timeoutPromise])
     const data = await response.json() as CNPJResponse
     
@@ -174,7 +158,6 @@ const validateCNPJ = async (cnpj: string) => {
       cnpjData.value = null
     }
   } catch (err) {
-    console.error('Erro na validação:', err)
     if (err instanceof Error) {
       error.value = err.message === 'Timeout' 
         ? 'Não foi possível validar o CNPJ. Continue o cadastro manualmente.'

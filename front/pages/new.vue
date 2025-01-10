@@ -155,7 +155,6 @@ const validateCNPJ = async (cnpj: string) => {
       cnpjData.value = null
     }
   } catch (err) {
-    console.error('Erro na validação:', err)
     if (err instanceof Error) {
       error.value = err.message === 'Timeout' 
         ? 'Não foi possível validar o CNPJ. Continue o cadastro manualmente.'
@@ -407,7 +406,6 @@ const submitForm = async () => {
     }, 1000)
 
   } catch (error) {
-    console.error('Erro ao enviar formulário:', error)
     addToast(error.message || 'Erro ao cadastrar fornecedor', 'error')
   } finally {
     loading.value = false
