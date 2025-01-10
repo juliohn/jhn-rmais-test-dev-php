@@ -17,12 +17,11 @@ O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedor
 3. Instale as dependências:
 - cd composer install
 
-4. Configure o ambiente:
-4.1 Copiar o arquivo de ambiente
+4. Copiar o arquivo de ambiente
   - cp .env.example .env
 
-  - Gerar a chave da aplicação
-    -- php artisan key:generate
+5.Gerar a chave da aplicação
+  - php artisan key:generate
 
 
 
