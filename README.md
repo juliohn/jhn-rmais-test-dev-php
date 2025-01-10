@@ -12,21 +12,20 @@ O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedor
 1. Clone o repositório
 
 2. Entre no diretório `laravel`:
-bash
-cd laravel
-
+- cd laravel
 
 3. Instale as dependências:
-bash
-composer install
+- cd composer install
 
 4. Configure o ambiente:
+  - Copiar o arquivo de ambiente
+    -- cp .env.example .env
 
-bash
-Copiar o arquivo de ambiente
-cp .env.example .env
-Gerar a chave da aplicação
-php artisan key:generate
+  - Gerar a chave da aplicação
+    -- php artisan key:generate
+
+
+
 Iniciar os containers
 ./vendor/bin/sail up -d
 Entrar no container docker do laravel
