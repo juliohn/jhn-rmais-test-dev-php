@@ -18,8 +18,8 @@ O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedor
 - cd composer install
 
 4. Configure o ambiente:
-  - Copiar o arquivo de ambiente
-    -- cp .env.example .env
+4.1 Copiar o arquivo de ambiente
+  - cp .env.example .env
 
   - Gerar a chave da aplicação
     -- php artisan key:generate
