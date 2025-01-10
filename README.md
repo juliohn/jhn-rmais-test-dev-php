@@ -42,6 +42,7 @@ O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedor
 ## Funcionalidades
 
 - Deve exibir a lista dos fornecedores
+- Deve exibir o detalhe de um fornecedor ao clicar na linha da lista
 - Deve estar paginado de 10 em 10 registros
 - Deve conseguir ordenar por nome, email ou id
 - Para filtrar os fornecedores deve digitar no campo de pesquisa e pressionar enter, nome, email ou documento
