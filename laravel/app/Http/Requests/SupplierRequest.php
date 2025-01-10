@@ -38,7 +38,7 @@ class SupplierRequest extends FormRequest
             'address.city' => 'required|string',
             'address.complement' => 'nullable|string',
             'address.neighborhood' => 'required|string',
-            'address.number' => 'required|string',
+            'address.number' => 'required',
             'address.state' => 'required|string|size:2',
             'address.street' => 'required|string',
         ];

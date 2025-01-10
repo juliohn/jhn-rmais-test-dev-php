@@ -197,13 +197,15 @@ const validateField = (field: BasicFields | AddressFields, section: 'address' | 
     if (!errors.value.address) {
       errors.value.address = {}
     }
-    errors.value.address[field as AddressFields] = !form.value.address[field as AddressFields] || 
-      form.value.address[field as AddressFields].trim() === '' 
+    const value = form.value.address[field as AddressFields]
+    errors.value.address[field as AddressFields] = !value || 
+      (typeof value === 'string' && value.trim() === '')
         ? 'Este campo é obrigatório' 
         : ''
   } else {
-    errors.value[field as BasicFields] = !form.value[field as BasicFields] || 
-      form.value[field as BasicFields].trim() === '' 
+    const value = form.value[field as BasicFields]
+    errors.value[field as BasicFields] = !value || 
+      (typeof value === 'string' && value.trim() === '')
         ? 'Este campo é obrigatório' 
         : ''
   }
@@ -446,13 +448,21 @@ const submitForm = async () => {
       }))
     }
 
-    const { data, message } = await $fetch<{ data: Supplier, message: string }>(`http://localhost/api/suppliers/${id}`, {
+    const response = await $fetch<{ data: Supplier, message: string }>(`http://localhost/api/suppliers/${id}`, {
       method: 'PUT',
       body: formData
+    }).catch(error => {
+      // Handle validation error (422)
+      if (error.response?.status === 422) {
+        
+        const firstError = Object.values(error.response._data);
+        throw new Error(firstError[0] || 'Erro de validação')
+      }
+      throw error
     })
 
     await new Promise(resolve => setTimeout(resolve, 2000))
-    addToast(message || 'Fornecedor atualizado com sucesso!', 'success')
+    addToast(response.message || 'Fornecedor atualizado com sucesso!', 'success')
 
     setTimeout(() => {
       navigateTo('/')

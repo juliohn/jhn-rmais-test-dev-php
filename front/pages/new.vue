@@ -178,13 +178,15 @@ const validateField = (field: BasicFields | AddressFields, section: 'address' | 
     if (!errors.value.address) {
       errors.value.address = {}
     }
-    errors.value.address[field as AddressFields] = !form.value.address[field as AddressFields] || 
-      form.value.address[field as AddressFields].trim() === '' 
+    const value = form.value.address[field as AddressFields]
+    errors.value.address[field as AddressFields] = !value || 
+      (typeof value === 'string' && value.trim() === '')
         ? 'Este campo é obrigatório' 
         : ''
   } else {
-    errors.value[field as BasicFields] = !form.value[field as BasicFields] || 
-      form.value[field as BasicFields].trim() === '' 
+    const value = form.value[field as BasicFields]
+    errors.value[field as BasicFields] = !value || 
+      (typeof value === 'string' && value.trim() === '')
         ? 'Este campo é obrigatório' 
         : ''
   }
@@ -370,7 +372,7 @@ const submitForm = async () => {
     // Preparar os dados para envio
     const formData = {
       ...form.value,
-      document: form.value.document.replace(/\D/g, ''), // Remove non-numeric characters
+      document: form.value.document.replace(/\D/g, ''),
       phones: form.value.phones.map(phone => ({
         ...phone,
         number: cleanPhoneNumber(phone.number)
@@ -378,16 +380,23 @@ const submitForm = async () => {
     }
 
     // Enviar dados usando $fetch do Nuxt
-    const { data, message } = await $fetch<{ data: Supplier, message: string }>('http://localhost/api/suppliers', {
+    const response = await $fetch<{ data: Supplier, message: string }>('http://localhost/api/suppliers', {
       method: 'POST',
       body: formData
+    }).catch(error => {
+      // Handle validation error (422)
+      if (error.response?.status === 422) {
+        const firstError = Object.values(error.response._data);
+        throw new Error(firstError[0] || 'Erro de validação')
+      }
+      throw error
     })
 
     // Aguardar 2 segundos antes de mostrar o toast
     await new Promise(resolve => setTimeout(resolve, 2000))
     
     // Mostrar toast de sucesso
-    addToast(message || 'Fornecedor cadastrado com sucesso!', 'success')
+    addToast(response.message || 'Fornecedor cadastrado com sucesso!', 'success')
 
     // Reset do formulário
     resetForm()
