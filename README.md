@@ -27,7 +27,7 @@ O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedor
   - ./vendor/bin/sail up -d
 
 7. Entrar no container docker do laravel
-  - docker exec -it <id-do-container-docker-do-laravel> bash
+  - docker exec -it (id-do-container-docker-do-laravel) bash
 
 8. Rodar as migrations e popular o banco de dados
   - php artisan migrate:fresh --seed
